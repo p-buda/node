@@ -19,7 +19,13 @@ http.get(url, (response) => {
 
     // When the entire message is received, parse it from string to JSON object.
     response.on('end', () => {
-        var jsonData = JSON.parse(body)
-        console.log(jsonData)
+        try {
+            var jsonData = JSON.parse(body)
+            console.log(jsonData)
+        } catch (err) {
+            console.error(`Format error: ${err.message}`)
+        } 
     })
+}).on('error', (e) => {
+    console.error(`Got error: ${e.message}`)
 })
